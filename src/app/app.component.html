@@ -1,0 +1,92 @@
+<div class="dumm" style="position: absolute;"></div>
+    <div class="modal-out" [style.display]="modal_dis">
+
+    <div class="modal">
+        <div class="mrow1">
+            <span>New Contact</span>
+            <span (click)="Cancel()"><i class="fa fa-times" aria-hidden="true"></i>
+            </span>
+        </div>
+        <hr>
+        <div class="form">
+            <input #fname type="text" placeholder="First name" required>
+            <input #lname type="text" placeholder="Last name" required>
+            <input #ph type="text" placeholder="Phone-number" required>
+        </div>
+        <hr>
+        <div class="mfooter">
+            <button 
+            (click) = "saveContact(fname,lname,ph)"
+            class="create">Create</button>
+            <button (click)="Cancel()" class="cancel">Cancel</button>
+        </div>
+    </div>
+</div> 
+
+<div class="modal-out" [style.display]="update_modal_dis">
+
+    <div class="modal">
+        <div class="mrow1">
+            <span>Update Contact</span>
+            <span (click)="Cancel2()"><i class="fa fa-times" aria-hidden="true"></i>
+            </span>
+        </div>
+        <hr>
+        <div class="form">
+            <input #fname2 type="text" placeholder="First name" required [value]="tmp1">
+            <input #lname2 type="text" placeholder="Last name" required [value]="tmp2">
+            <input #ph2 type="text" placeholder="Phone-number" required [value]="tmp3">
+        </div>
+        <hr>
+        <div class="mfooter">
+            <button 
+            (click) = "updateContact(fname2,lname2,ph2)"
+            class="create">Update</button>
+            <button (click)="Cancel2()" class="cancel">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container">
+
+   <h2><i class="fa fa-address-book" aria-hidden="true"></i>
+    Phone Book App</h2>
+
+   <div class="row1">
+        <h3>Contacts</h3>
+        <button (click)="showModal()"><i class="fa fa-plus" aria-hidden="true"></i>
+            Add Contact</button>
+   </div>
+
+   <div class='row2'>
+        <input type="text" id="addInp" #inp placeholder="search for contact by last name..."
+        (keyup)="searchContacts(inp.value)"
+        >
+        <i id="search" class="fa fa-search" aria-hidden="true"></i>
+
+   </div>
+
+   <div class="wrapper">
+       {{sortContact()}}
+       <div class="list-item" *ngFor="let cont of contacts;let i=index;" [style.display]="cont.dis">
+            <div class="col1">
+                <span class="e1">{{ cont.fname+"  "+cont.lname }}</span>
+                <span class="e2">{{ cont.ph }}</span>
+            </div>
+            <div class="col2">
+                <i class="fa fa-pencil-square-o fa-lg" (click)="Update(cont,i)"  id="pencil" aria-hidden="true"></i>
+                <i class="fa fa-trash fa-lg" (click)="delete(i)" aria-hidden="true"></i>
+            </div>
+       </div>
+
+       <div class="empy" style="text-align: center;" *ngIf="contacts.length==0 || allNone()">
+           No Data found...
+       </div>
+
+  
+   </div>
+   
+</div>
